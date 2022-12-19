@@ -12,3 +12,4 @@ const server = app.listen( process.env.PORT, "0.0.0.0", () => {
     console.log(`Server running on PORT ${process.env.PORT}`)
     V1SwaggerDocs( app, process.env.PORT)
 })
+
