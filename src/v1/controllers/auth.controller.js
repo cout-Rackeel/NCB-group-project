@@ -1,4 +1,4 @@
-const idVerificationServ = require( '../services/idVerification.service');
+const idVerificationServ = require( '../services/idVerificationServ.service');
 const authService = require( '../services/auth.service')
 
 const registerUser = async( req, res) => {
