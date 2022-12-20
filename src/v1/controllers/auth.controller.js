@@ -1,4 +1,4 @@
-const idVerificationService = require( '../services/idVerification.service')
+const idVerificationServ = require( '../services/idVerification.service');
 const authService = require( '../services/auth.service')
 
 const registerUser = async( req, res) => {
@@ -37,7 +37,7 @@ const registerUser = async( req, res) => {
     }
 
     try {
-        const createdId = await idVerificationService.saveNewId( newId)
+        const createdId = await idVerificationServ.saveNewId( newId)
         // save new user
         const newUser = {
             firstName: body.firstName,
@@ -59,10 +59,10 @@ const registerUser = async( req, res) => {
             data: registeredUser
         })
     } catch (error) {
-        const savedId = await idVerificationService.findId( {$and: [{number: body.idNumber}, {userCreated: false}]})
+        const savedId = await idVerificationServ.findId( {$and: [{number: body.idNumber}, {userCreated: false}]})
 
         if( savedId.length >= 1) {
-            await idVerificationService.deleteIdonFail( {number: body.idNumber})
+            await idVerificationServ.deleteIdonFail( {number: body.idNumber})
         }
         res
           .status(error?.status || 500)
