@@ -1,10 +1,10 @@
-const accountService = require( '../services/account.service')
+const account = require( '../services/account.service')
 
 const getAllAccounts = async( req, res) => {
 
     try {
         //get all accounts from service
-        const allAccounts = await accountService.getAllAcounts()
+        const allAccounts = await account.getAllAcounts()
 
         // return all accounts
         res.status(200).json({
@@ -36,7 +36,7 @@ const getAccount = async( req, res) => {
 
     try {
         // get one account
-        const account = await accountService.getAccount( id)
+        const account = await account.getAccount( id)
 
         if( account.userID != user.user){
             res.status( 403).json({
@@ -91,7 +91,7 @@ const createAccount = async( req, res) => {
 
     try {
         // create account in service
-        const createdAccount = await accountService.createAccount( newAccount)
+        const createdAccount = await account.createAccount( newAccount)
 
         res.status( 201).json({
             status: "SUCCESS",
@@ -124,7 +124,7 @@ const updateAccount = async( req, res) => {
 
     try {
         // get one account
-        const account = await accountService.getAccount( id)
+        const account = await account.getAccount( id)
 
         if( account.userID != user.user){
             res.status( 403).json({
@@ -136,7 +136,7 @@ const updateAccount = async( req, res) => {
             return
         }
         //update info in the account service
-        const updatedAccount = await accountService.updateAccount( id, body)
+        const updatedAccount = await account.updateAccount( id, body)
 
         // return updated account
         res.status( 200).json({
@@ -171,7 +171,7 @@ const deleteAccount = async( req, res) => {
     try {
 
         // get one account
-        const account = await accountService.getAccount( id)
+        const account = await account.getAccount( id)
 
         if( account.userID != user.user){
             res.status( 403).json({
@@ -184,7 +184,7 @@ const deleteAccount = async( req, res) => {
         }
 
         // delete account from service
-        await accountService.deleteAccount( id)
+        await account.deleteAccount( id)
 
         res.status( 204).send({
             status: "SUCCESS",
