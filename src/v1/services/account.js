@@ -1,5 +1,5 @@
 const Account = require("../database/account.db")
-const UserService = require( '../services/user.service')
+const UserService = require( './user.service')
 const KeyValue = require( "../database/keyValue.db")
 const accNoId = "63443741b666aecc3faee5b1"
 

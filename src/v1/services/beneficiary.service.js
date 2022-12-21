@@ -1,5 +1,5 @@
 const Beneficiary = require( '../database/beneficiary.db')
-const AccountService = require( '../services/account.service')
+const AccountService = require( './account')
 const UserService = require( '../services/user.service')
 
 const getAllBeneficiaries = async() => {

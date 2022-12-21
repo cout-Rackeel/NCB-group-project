@@ -1,6 +1,6 @@
 const User = require( '../database/user.db')
-const idVerificationService = require( './idVerificationServ.service')
-const accountService = require( '../services/account.service')
+const idVerificationService = require( './idVerification.service')
+const accountService = require( './account')
 const debitCardService =  require( '../services/debitCard.service')
 const creditCardService = require( '../services/creditCard.service')
 const bcrypt = require( 'bcryptjs')

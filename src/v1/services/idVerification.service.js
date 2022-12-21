@@ -1,4 +1,4 @@
-const idVerification = require( '../database/idVerificationdb.db')
+const idVerification = require( '../database/idVerification.db')
 /**
  * 
  * @param {Object} newId 
