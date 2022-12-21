@@ -1,4 +1,4 @@
-const beneficiaryService = require( '../services/beneficiary.service')
+const beneficiaryService = require( '../apiservices/beneficiary.service')
 
 const getBeneficiary = async( req, res) => {
     const { params: id, user} = req

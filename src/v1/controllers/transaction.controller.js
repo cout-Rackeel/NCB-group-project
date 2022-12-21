@@ -1,5 +1,5 @@
-const transactionService = require( '../services/transaction.service')
-const accountService = require( '../services/account.service')
+const transactionService = require( '../apiservices/transaction.service')
+const accountService = require( '../apiservices/account.service')
 
 const createTransaction = async( req, res) => {
     // get transaction data from request body
