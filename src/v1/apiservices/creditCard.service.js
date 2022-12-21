@@ -1,5 +1,5 @@
 const CreditCard = require( '../database/creditCard.db')
-const UserService = require( '../services/user.service')
+const UserService = require( './user.service')
 const generator = require('creditcard-generator')
 
 const  createCard = async( newCard, user) => {
