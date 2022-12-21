@@ -1,4 +1,4 @@
-const accountService = require( '../services/account')
+const accountService = require( '../services/account.service')
 
 const getAllAccounts = async( req, res) => {
 

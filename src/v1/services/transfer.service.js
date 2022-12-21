@@ -1,7 +1,7 @@
 const Transfer = require( '../database/transfer.db')
 const transactionService = require( './transaction.service')
 const KeyValue = require( '../database/keyValue.db')
-const accountService = require( './account')
+const accountService = require( './account.service')
 const transNoId = "634d78842e39785826119048"
 const credit = "634d7b782e3978582611904a"
 const debit = "634d7b882e3978582611904b"
