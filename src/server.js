@@ -2,7 +2,7 @@ const database = require('../db/db')
 require( 'dotenv').config()
 
 // const { swaggerDocs: V1SwaggerDocs} = require( './v1/swagger')
-// app = require('./index')
+app = require('./index')
 
 //Run DB connection
 database()
