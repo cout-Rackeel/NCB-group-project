@@ -6,7 +6,7 @@ const { morganLogs } = require('./middlewares/morgan')
 
 const v1Router = require( './v1/routes/index')
 const v1AccountRouter = require( './v1/routes/account.routes')
-const v1AuthRouter = require( '../src/v1/routes/auth.routes')
+const v1AuthRouter = require( './v1/routes/auth.routes')
 const v1TransactionRouter = require( './v1/routes/transaction.routes')
 const v1BeneficiaryRouter = require( './v1/routes/beneficiary.routes')
 const v1TransferRouter = require( './v1/routes/transfer.routes')
