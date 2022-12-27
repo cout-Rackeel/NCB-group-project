@@ -1,5 +1,4 @@
-
-const UserService = require('../apiservices/user.service')
+const User = require('../models/user.model')
 const Account = require("../models/account.model")
 const KeyValue = require( "../models/keyValue.model")
 const accNoId = "63443741b666aecc3faee5b1"
@@ -112,8 +111,9 @@ const createAccount = async( req, res) => {
             accNo.value ++
             KeyValue.findByIdAndUpdate( accNoId, accNo,{returnDocument: 'after'})
     
-            accountOwner = await UserService.getUser( createdAccount.userID)
-    
+
+            accountOwner = await User.findById(createdAccount.userID)
+
             accountOwner['accounts'].push( createdAccount._id)
     
             accountOwner.save()
