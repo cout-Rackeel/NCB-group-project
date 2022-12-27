@@ -1,4 +1,4 @@
-const userService = require( '../apiservices/user.service')
+const userService = require( '../services/user.service')
 
 const updateUser = async( req, res) => {
     //get id and data from request params and body

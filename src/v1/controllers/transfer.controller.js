@@ -1,4 +1,4 @@
-const transferService = require( '../apiservices/transfer.service')
+const transferService = require( '../services/transfer.service')
 
 
 const createTransfer = async( req, res) => {
