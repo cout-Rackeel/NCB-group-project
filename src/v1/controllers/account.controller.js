@@ -1,7 +1,8 @@
+
 const User = require('../models/user.model')
-const Account = require("../models/account.model")
-const KeyValue = require( "../models/keyValue.model")
-const accNoId = "63443741b666aecc3faee5b1"
+const Account = require('../models/account.model')
+const KeyValue = require('../models/keyValue.model')
+const accNoId = '63443741b666aecc3faee5b1'
 
 const getAllAccounts = async( req, res) => {
 
