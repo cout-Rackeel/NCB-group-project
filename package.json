@@ -2,10 +2,7 @@
   "name": "ncb-group-project",
   "version": "1.0.0",
   "description": "To have a local copy of the project to work on clone the repository using the command `git clone https://github.com/Dawnz/amber-plumming-app-backend.git` in the terminal.",
-  "main": "index.js",
-  "engines": {
-    "node": "16.x"
-  },
+
   "scripts": {
     "dev": "nodemon src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
