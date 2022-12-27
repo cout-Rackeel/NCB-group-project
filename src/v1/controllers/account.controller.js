@@ -1,11 +1,13 @@
-
-const { getAllAcounts , getAccount , updateAccount , createAccount , findAccount, deleteAccount} = require( '../apiservices/account.service')
+const Account = require("../database/account.db")
+const UserService = require('../apiservices/user.service')
+const KeyValue = require( "../database/keyValue.db")
+const accNoId = "63443741b666aecc3faee5b1"
 
 const getAllAccounts = async( req, res) => {
 
     try {
         //get all accounts from service
-        const allAccounts = await getAllAcounts()
+        const allAccounts = await Account.getAllAcounts()
 
         // return all accounts
         res.status(200).json({
@@ -20,7 +22,7 @@ const getAllAccounts = async( req, res) => {
     }   
 }
 
-const getAccountt = async( req, res) => {
+const getAccount = async( req, res) => {
     //get id and data from request params and body
     const { params: id, user} = req
 
@@ -37,9 +39,9 @@ const getAccountt = async( req, res) => {
 
     try {
         // get one account
-        const account = await getAccount( id)
+        const account = await Account.getAccount( id)
 
-        if( userID != user.user){
+        if( account.userID != user.user){
             res.status( 403).json({
                 status: "FAILED",
                 data: {
@@ -64,7 +66,7 @@ const getAccountt = async( req, res) => {
     
 }
 
-const createAccountt = async( req, res) => {
+const createAccount = async( req, res) => {
     // get account info from request body
     const { body} = req
 
@@ -92,7 +94,29 @@ const createAccountt = async( req, res) => {
 
     try {
         // create account in service
-        const createdAccount = await createAccount( newAccount)
+        const accNo = await KeyValue.getOneValue( accNoId)
+
+
+        //insert account #
+        const accountToInsert = {
+            ...newAccount,
+            accNo: accNo.value
+        }
+    
+        // save account to db
+        const createdAccount = await Account.createAccount( accountToInsert)
+    
+        // if successful
+        if( createdAccount) {
+            accNo.value ++
+            KeyValue.updateOneValue( accNoId, accNo)
+    
+            accountOwner = await UserService.getUser( createdAccount.userID)
+    
+            accountOwner['accounts'].push( createdAccount._id)
+    
+            accountOwner.save()
+        }
 
         res.status( 201).json({
             status: "SUCCESS",
@@ -108,7 +132,7 @@ const createAccountt = async( req, res) => {
     
 }
 
-const updateAccountt = async( req, res) => {
+const updateAccount = async( req, res) => {
     //get id and data from request params and body
     const { body, params: id, user} = req
 
@@ -125,9 +149,9 @@ const updateAccountt = async( req, res) => {
 
     try {
         // get one account
-        const account = await getAccount( id)
+        const account = await Account.getAccount( id)
 
-        if( userID != user.user){
+        if( account.userID != user.user){
             res.status( 403).json({
                 status: "FAILED",
                 data: {
@@ -137,7 +161,7 @@ const updateAccountt = async( req, res) => {
             return
         }
         //update info in the account service
-        const updatedAccount = await updateAccount( id, body)
+        const updatedAccount = await Account.updateAccount( id, body)
 
         // return updated account
         res.status( 200).json({
@@ -153,7 +177,7 @@ const updateAccountt = async( req, res) => {
     }
 }
 
-const deleteAccountt = async( req, res) => {
+const deleteAccount = async( req, res) => {
     // get id from params
     const { params: id} = req
 
@@ -172,9 +196,9 @@ const deleteAccountt = async( req, res) => {
     try {
 
         // get one account
-        const account = await getAccount( id)
+        const account = await Account.getAccount( id)
 
-        if( userID != user.user){
+        if( account.userID != user.user){
             res.status( 403).json({
                 status: "FAILED",
                 data: {
@@ -185,7 +209,7 @@ const deleteAccountt = async( req, res) => {
         }
 
         // delete account from service
-        await deleteAccount( id)
+        await account.deleteAccount( id)
 
         res.status( 204).send({
             status: "SUCCESS",
@@ -202,8 +226,8 @@ const deleteAccountt = async( req, res) => {
 
 module.exports = { 
     getAllAccounts,
-    getAccountt,
-    createAccountt,
-    updateAccountt,
-    deleteAccountt
+    getAccount,
+    createAccount,
+    updateAccount,
+    deleteAccount
  }
