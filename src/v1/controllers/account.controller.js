@@ -1,14 +1,14 @@
 
 const UserService = require('../apiservices/user.service')
-const Account = require("../database/account.db")
-const KeyValue = require( "../database/keyValue.db")
+const Account = require("../models/account.model")
+const KeyValue = require( "../models/keyValue.model")
 const accNoId = "63443741b666aecc3faee5b1"
 
 const getAllAccounts = async( req, res) => {
 
     try {
         //get all accounts from service
-        const allAccounts = await Account.getAllAcounts()
+        const allAccounts = await Account.find()
 
         // return all accounts
         res.status(200).json({
@@ -40,7 +40,7 @@ const getAccount = async( req, res) => {
 
     try {
         // get one account
-        const account = await Account.getAccount( id)
+        const account = await Account.findById(id)
 
         if( account.userID != user.user){
             res.status( 403).json({
@@ -95,7 +95,7 @@ const createAccount = async( req, res) => {
 
     try {
         // create account in service
-        const accNo = await KeyValue.getOneValue( accNoId)
+        const accNo = await KeyValue.findById( accNoId)
 
 
         //insert account #
@@ -105,12 +105,12 @@ const createAccount = async( req, res) => {
         }
     
         // save account to db
-        const createdAccount = await Account.createAccount( accountToInsert)
+        const createdAccount = await Accountmodel.create( accountToInsert)
     
         // if successful
         if( createdAccount) {
             accNo.value ++
-            KeyValue.updateOneValue( accNoId, accNo)
+            KeyValue.findByIdAndUpdate( accNoId, accNo,{returnDocument: 'after'})
     
             accountOwner = await UserService.getUser( createdAccount.userID)
     
@@ -150,7 +150,7 @@ const updateAccount = async( req, res) => {
 
     try {
         // get one account
-        const account = await Account.getAccount( id)
+        const account = await Account.findOne( id)
 
         if( account.userID != user.user){
             res.status( 403).json({
@@ -162,7 +162,7 @@ const updateAccount = async( req, res) => {
             return
         }
         //update info in the account service
-        const updatedAccount = await Account.updateAccount( id, body)
+        const updatedAccount = await Account.findByIdAndUpdate( id, body)
 
         // return updated account
         res.status( 200).json({
@@ -197,7 +197,7 @@ const deleteAccount = async( req, res) => {
     try {
 
         // get one account
-        const account = await Account.getAccount( id)
+        const account = await Account.find( id)
 
         if( account.userID != user.user){
             res.status( 403).json({
@@ -210,7 +210,7 @@ const deleteAccount = async( req, res) => {
         }
 
         // delete account from service
-        await account.deleteAccount( id)
+        await Account.findByIdAndRemove(id)
 
         res.status( 204).send({
             status: "SUCCESS",
